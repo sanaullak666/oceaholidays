@@ -22,6 +22,9 @@
             --light: #f5f9ff;
             --gray: #5e6f8c;
             --white: #ffffff;
+            --whatsapp: #25D366;
+            --instagram: #E4405F;
+            --facebook: #1877F2;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -685,28 +688,62 @@
             opacity: 1;
         }
 
+        /* Social Links - Updated with only WhatsApp, Facebook, Instagram */
         .social-links {
             display: flex;
-            gap: 12px;
-            margin-top: 15px;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
-        .social-links a {
+        .social-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 45px;
+            height: 45px;
             border-radius: var(--radius-full);
             color: var(--white);
             transition: var(--transition);
-            font-size: 1.1rem;
+            font-size: 1.3rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .social-links a:hover {
-            background: var(--secondary);
-            transform: translateY(-3px) rotate(360deg);
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: currentColor;
+            opacity: 0.2;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .social-link:hover::before {
+            opacity: 0.3;
+        }
+
+        .social-link.whatsapp {
+            background: var(--whatsapp);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .social-link.instagram {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            box-shadow: 0 5px 15px rgba(225, 48, 108, 0.3);
+        }
+
+        .social-link.facebook {
+            background: var(--facebook);
+            box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3);
         }
 
         .footer-bottom {
@@ -862,6 +899,12 @@
             .contact-item {
                 padding: 20px 15px;
             }
+            
+            .social-link {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
         }
 
         /* Touch-friendly improvements */
@@ -999,7 +1042,10 @@
             <p>From crystal-clear lagoons and vibrant coral reefs to warm local hospitality, every detail of our itineraries is carefully selected to ensure an unforgettable experience. With a commitment to quality, comfort, and personalized service, OCEA Holidays offers seamless travel solutions—from permits and accommodations to guided island experiences.</p>
             
             <ul class="about-list">
-                
+                <li>
+                    <i class="fas fa-mountain"></i>
+                    <span>Specializing in Lakshadweep island experiences since 2010</span>
+                </li>
                 <li>
                     <i class="fas fa-water"></i>
                     <span>Curated journeys to the most beautiful and untouched islands</span>
@@ -1044,11 +1090,18 @@
             <div class="footer-col">
                 <h3>Ocea Holidays</h3>
                 <p>Creating unforgettable island experiences since 2010. We specialize in curating immersive journeys to Lakshadweep's most beautiful destinations.</p>
+                
+                <!-- Social Links - Only WhatsApp, Facebook, Instagram -->
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/919446691329" class="social-link whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/ocea_holidays?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="social-link instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/924963727372513?ref=PROFILE_EDIT_xav_ig_profile_page_web" class="social-link facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
                 </div>
             </div>
             
@@ -1123,4 +1176,119 @@
         // Function to determine slides to show based on screen width
         function getSlidesToShow() {
             if (window.innerWidth <= 768) return 1;
-            if (window.innerWidth <= 992
+            if (window.innerWidth <= 992) return 2;
+            return 3;
+        }
+        
+        // Update slidesToShow on resize
+        window.addEventListener('resize', () => {
+            slidesToShow = getSlidesToShow();
+            updateSlider();
+            updateButtons();
+        });
+        
+        // Initialize
+        slidesToShow = getSlidesToShow();
+        
+        // Maximum index value
+        function getMaxIndex() {
+            return Math.max(0, totalSlides - slidesToShow);
+        }
+        
+        // Update slider position
+        function updateSlider() {
+            const slideWidth = 100 / slidesToShow;
+            const translateValue = - (currentIndex * slideWidth);
+            slider.style.transform = `translateX(${translateValue}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Update button states
+        function updateButtons() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === getMaxIndex();
+        }
+        
+        // Next button click
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < getMaxIndex()) {
+                currentIndex++;
+                updateSlider();
+                updateButtons();
+            }
+        });
+        
+        // Previous button click
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+                updateButtons();
+            }
+        });
+        
+        // Dot click events
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                if (slideIndex <= getMaxIndex()) {
+                    currentIndex = slideIndex;
+                    updateSlider();
+                    updateButtons();
+                }
+            });
+        });
+        
+        // Initial button states
+        updateButtons();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Navbar active link update on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.about, .contact-info');
+            const navLinks = document.querySelectorAll('.menu a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
