@@ -123,7 +123,7 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Logo Styles - Updated for image */
+        /* Logo Styles */
         .logo {
             display: flex;
             align-items: center;
@@ -184,7 +184,7 @@
             font-weight: 700;
         }
 
-        /* Mobile Menu Toggle - Hidden by default */
+        /* Mobile Menu Toggle */
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
@@ -272,12 +272,14 @@
             width: 100%;
             border-radius: var(--radius-md);
             touch-action: pan-y pinch-zoom;
+            -webkit-overflow-scrolling: touch;
         }
 
         .hero-slider {
             display: flex;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             gap: 20px;
+            will-change: transform;
         }
 
         .slide-card {
@@ -289,6 +291,8 @@
             transition: var(--transition);
             border: 1px solid rgba(10, 126, 140, 0.1);
             cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .slide-card:active {
@@ -330,13 +334,14 @@
             object-fit: cover;
             transition: transform 0.5s ease;
             display: block;
+            pointer-events: none;
         }
 
         .slide-card:hover .card-image img {
             transform: scale(1.1);
         }
 
-        /* Image Overlay Text (optional) */
+        /* Image Overlay Text */
         .card-image .image-label {
             position: absolute;
             bottom: 20px;
@@ -349,6 +354,7 @@
             opacity: 0;
             transform: translateY(10px);
             transition: var(--transition);
+            pointer-events: none;
         }
 
         .slide-card:hover .image-label {
@@ -374,6 +380,7 @@
             flex-shrink: 0;
             border: 2px solid transparent;
             -webkit-tap-highlight-color: transparent;
+            z-index: 10;
         }
 
         .slider-btn:hover {
@@ -425,6 +432,26 @@
 
         .dot:active {
             transform: scale(1.2);
+        }
+
+        /* Touch swipe indicator for mobile */
+        .swipe-indicator {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+        }
+
+        .swipe-indicator i {
+            margin: 0 5px;
+            color: var(--primary);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
         }
 
         /* About Section */
@@ -685,7 +712,7 @@
             opacity: 1;
         }
 
-        /* Social Links - Updated with only WhatsApp, Facebook, Instagram */
+        /* Social Links */
         .social-links {
             display: flex;
             gap: 15px;
@@ -762,6 +789,10 @@
             .card-image {
                 height: 250px;
             }
+            
+            .swipe-indicator {
+                display: block;
+            }
         }
 
         @media (max-width: 768px) {
@@ -823,7 +854,7 @@
             }
             
             .slider-container {
-                gap: 8px;
+                gap: 5px;
             }
             
             .slider-btn {
@@ -869,7 +900,7 @@
             }
             
             .slider-btn {
-                display: none; /* Hide buttons on very small screens, use dots only */
+                display: none; /* Hide buttons on very small screens, use dots and swipe only */
             }
             
             .slider-dots {
@@ -910,6 +941,10 @@
             .logo {
                 height: 35px;
             }
+            
+            .swipe-indicator {
+                font-size: 0.8rem;
+            }
         }
 
         /* Touch-friendly improvements */
@@ -925,6 +960,10 @@
             .slider-btn:hover {
                 background: var(--white);
                 color: var(--primary);
+            }
+            
+            .slider-wrapper {
+                -webkit-overflow-scrolling: touch;
             }
         }
 
@@ -967,7 +1006,7 @@
         </div>
     </div>
 
-    <!-- Hero Section with Card Slides - Only Images -->
+    <!-- Hero Section with Card Slides -->
     <div class="hero">
         <div class="hero-container">
             <div class="section-header">
@@ -983,7 +1022,7 @@
                 
                 <div class="slider-wrapper">
                     <div class="hero-slider" id="heroSlider">
-                        <!-- Slide 1: Lakshadweep - Only Image -->
+                        <!-- Slide 1: Lakshadweep -->
                         <div class="slide-card">
                             <div class="card-image">
                                 <img src="slide1new.PNG" alt="Lakshadweep" 
@@ -992,7 +1031,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide 2: Kalpeni Island - Only Image -->
+                        <!-- Slide 2: Kalpeni Island -->
                         <div class="slide-card">
                             <div class="card-image">
                                 <img src="slide2new.PNG" alt="Kalpeni Island"
@@ -1001,7 +1040,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide 3: Cheriyam Island - Only Image -->
+                        <!-- Slide 3: Cheriyam Island -->
                         <div class="slide-card">
                             <div class="card-image">
                                 <img src="slide3new.PNG" alt="Cheriyam Island"
@@ -1010,7 +1049,7 @@
                             </div>
                         </div>
 
-                        <!-- Slide 4: Kayaking to Pitti and Thilakkam - Only Image -->
+                        <!-- Slide 4: Kayaking to Pitti and Thilakkam -->
                         <div class="slide-card">
                             <div class="card-image">
                                 <img src="slide4new.PNG" alt="Kayaking to Pitti and Thilakkam Islands"
@@ -1024,6 +1063,11 @@
                 <button class="slider-btn" id="nextBtn" aria-label="Next slides">
                     <i class="fas fa-chevron-right"></i>
                 </button>
+            </div>
+
+            <!-- Swipe Indicator for Mobile -->
+            <div class="swipe-indicator">
+                <i class="fas fa-chevron-left"></i> Swipe to explore more <i class="fas fa-chevron-right"></i>
             </div>
 
             <!-- Slider Dots -->
@@ -1046,7 +1090,6 @@
             <p>From crystal-clear lagoons and vibrant coral reefs to warm local hospitality, every detail of our itineraries is carefully selected to ensure an unforgettable experience. With a commitment to quality, comfort, and personalized service, OCEA Holidays offers seamless travel solutions—from permits and accommodations to guided island experiences.</p>
             
             <ul class="about-list">
-                
                 <li>
                     <i class="fas fa-water"></i>
                     <span>Curated journeys to the most beautiful and untouched islands</span>
@@ -1091,8 +1134,7 @@
             <div class="footer-col">
                 <h3>Ocea Holidays</h3>
                 
-                
-                <!-- Social Links - Only WhatsApp, Facebook, Instagram -->
+                <!-- Social Links -->
                 <div class="social-links">
                     <a href="https://wa.me/919446691329" class="social-link whatsapp" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
@@ -1164,15 +1206,22 @@
             });
         });
 
-        // Slider functionality with manual controls
+        // Slider functionality with manual controls and touch support
         const slider = document.getElementById('heroSlider');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const dots = document.querySelectorAll('.dot');
+        const sliderWrapper = document.querySelector('.slider-wrapper');
         
         let currentIndex = 0;
         const totalSlides = 4;
         let slidesToShow = 3;
+        
+        // Touch events for mobile swipe
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let isDragging = false;
+        let startTransform = 0;
         
         // Function to determine slides to show based on screen width
         function getSlidesToShow() {
@@ -1246,6 +1295,42 @@
                     updateButtons();
                 }
             });
+        });
+        
+        // Touch events for mobile swipe
+        sliderWrapper.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            isDragging = true;
+            startTransform = currentIndex;
+        }, { passive: true });
+        
+        sliderWrapper.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            touchEndX = e.touches[0].clientX;
+        }, { passive: true });
+        
+        sliderWrapper.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            
+            const swipeThreshold = 50;
+            const diffX = touchStartX - touchEndX;
+            
+            if (Math.abs(diffX) > swipeThreshold) {
+                if (diffX > 0 && currentIndex < getMaxIndex()) {
+                    // Swipe left - go to next
+                    currentIndex++;
+                } else if (diffX < 0 && currentIndex > 0) {
+                    // Swipe right - go to previous
+                    currentIndex--;
+                }
+                updateSlider();
+                updateButtons();
+            }
+            
+            // Reset touch values
+            touchStartX = 0;
+            touchEndX = 0;
+            isDragging = false;
         });
         
         // Initial button states
