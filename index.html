@@ -106,7 +106,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 5%;
+            padding: 12px 5%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -118,28 +118,69 @@
         }
 
         .navbar.scrolled {
-            padding: 12px 5%;
+            padding: 8px 5%;
             background: rgba(255, 255, 255, 0.98);
             box-shadow: var(--shadow-md);
         }
 
-        /* Logo Styles */
+        /* Logo Container */
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
         .logo {
             display: flex;
             align-items: center;
-            height: 50px;
+            height: 80px; /* Increased from 70px to 80px */
         }
 
         .logo img {
             height: 100%;
             width: auto;
-            max-width: 200px;
+            max-width: 320px; /* Increased from 280px to 320px */
             object-fit: contain;
             transition: var(--transition);
         }
 
         .logo img:hover {
             transform: scale(1.05);
+        }
+
+        /* Tagline Styles */
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            margin-left: 4px;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline::before {
+            content: '⚓';
+            margin-right: 6px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            -webkit-text-fill-color: initial;
+        }
+
+        .tagline::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 20px;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            border-radius: var(--radius-full);
         }
 
         .menu {
@@ -793,6 +834,14 @@
             .swipe-indicator {
                 display: block;
             }
+            
+            .logo {
+                height: 70px; /* Slightly smaller on tablet */
+            }
+            
+            .logo img {
+                max-width: 280px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -846,7 +895,15 @@
             }
 
             .logo {
-                height: 40px;
+                height: 60px; /* Smaller on mobile */
+            }
+            
+            .logo img {
+                max-width: 240px;
+            }
+            
+            .tagline {
+                font-size: 0.8rem;
             }
 
             .slide-card {
@@ -939,7 +996,15 @@
             }
 
             .logo {
-                height: 35px;
+                height: 50px; /* Smaller on very small screens */
+            }
+            
+            .logo img {
+                max-width: 200px;
+            }
+            
+            .tagline {
+                font-size: 0.75rem;
             }
             
             .swipe-indicator {
@@ -988,8 +1053,11 @@
 
     <!-- Navbar -->
     <div class="navbar" id="navbar">
-        <div class="logo">
-            <img src="oceaholidays.jpeg" alt="Ocea Holidays Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/200x50/0a7e8c/ffffff?text=Ocea+Holidays';">
+        <div class="logo-container">
+            <div class="logo">
+                <img src="oceaholidays.jpeg" alt="Ocea Holidays Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/320x80/0a7e8c/ffffff?text=Ocea+Holidays';">
+            </div>
+            <div class="tagline">Sail beyond expectations!</div>
         </div>
         
         <!-- Mobile Menu Toggle -->
@@ -1010,7 +1078,7 @@
     <div class="hero">
         <div class="hero-container">
             <div class="section-header">
-                <h1>Discover Lakshadweep with OceaHolidays</h1>
+                <h1>Discover Lakshadweep with Ocea Holidays</h1>
                 <p>Explore the pristine beauty of untouched islands through our curated collection of experiences</p>
             </div>
 
