@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocea Holidays | Luxury Island Getaways</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --secondary: #06d6a0;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --transition: all 0.3s ease;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        .menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .menu a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .menu a:hover {
+            color: var(--primary);
+        }
+
+        .menu a:hover:after {
+            width: 100%;
+        }
+
+        .menu a.active {
+            color: var(--primary);
+        }
+
+        .menu a.active:after {
+            width: 100%;
+        }
+
+        /* Hero Section with Card Slides */
+        .hero {
+            padding: 60px 50px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f2f9 100%);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Card Slider */
+        .slider-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .slider-wrapper {
+            overflow: hidden;
+            width: 100%;
+            border-radius: var(--radius);
+        }
+
+        .hero-slider {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 25px;
+        }
+
+        .slide-card {
+            min-width: calc(33.333% - 17px);
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .slide-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+            background-color: #e2e8f0; /* Fallback color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .slide-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        /* No card content - only images */
+
+        /* Navigation Buttons */
+        .slider-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: var(--transition);
+            flex-shrink: 0;
+            border: 2px solid transparent;
+        }
+
+        .slider-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .slider-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #e2e8f0;
+            color: var(--gray);
+        }
+
+        .slider-btn:disabled:hover {
+            background: #e2e8f0;
+            color: var(--gray);
+            transform: none;
+        }
+
+        /* Slider Dots */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            text-align: left;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .about-content h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .about-list {
+            margin-top: 40px;
+            list-style: none;
+        }
+
+        .about-list li {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 20px;
+            background: rgba(14, 165, 233, 0.05);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .about-list li:hover {
+            background: rgba(14, 165, 233, 0.1);
+            transform: translateX(10px);
+        }
+
+        .about-list li i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            width: 40px;
+            text-align: center;
+        }
+
+        /* Contact Info */
+        .contact-info {
+            background: #f8fafc;
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 40px auto 0;
+        }
+
+        .contact-item {
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            background: rgba(14, 165, 233, 0.1);
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .contact-item:hover i {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .contact-item p {
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 50px 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: white;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-col p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .slide-card {
+                min-width: calc(50% - 12.5px);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .navbar {
+                padding: 20px 30px;
+            }
+            
+            .hero {
+                padding: 40px 30px;
+            }
+            
+            .about {
+                padding: 60px 30px;
+            }
+            
+            .contact-info {
+                padding: 60px 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .menu {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero {
+                padding: 30px 20px;
+            }
+            
+            .slide-card {
+                min-width: 100%;
+            }
+            
+            .slider-container {
+                gap: 10px;
+            }
+            
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .about, .contact-info {
+                padding: 50px 20px;
+            }
+            
+            .section-header h1 {
+                font-size: 2rem;
+            }
+            
+            .card-image {
+                height: 250px;
+            }
+            
+            .about-list li {
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .contact-grid {
+                gap: 30px;
+            }
+            
+            .about-content h2 {
+                font-size: 2rem;
+            }
+            
+            .card-image {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <i class="fas fa-water"></i> Ocea Holidays - Lakshadweep Island Experiences
+    </div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">
+            <i class="fas fa-water"></i> Ocea Holidays
+        </div>
+        
+        <div class="menu">
+            <a href="#" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section with Card Slides - Only Images -->
+    <div class="hero">
+        <div class="hero-container">
+            <div class="section-header">
+                <h1>Discover Lakshadweep</h1>
+                <p>Explore the pristine beauty of untouched islands through our curated collection of experiences</p>
+            </div>
+
+            <!-- Slider Container with Navigation -->
+            <div class="slider-container">
+                <button class="slider-btn" id="prevBtn" aria-label="Previous slides">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="slider-wrapper">
+                    <div class="hero-slider" id="heroSlider">
+                        <!-- Slide 1: Lakshadweep - Only Image -->
+                        <div class="slide-card">
+                            <div class="card-image">
+                                <img src="slide1.png" alt="Lakshadweep" 
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'350\' viewBox=\'0 0 400 350\'%3E%3Crect width=\'400\' height=\'350\' fill=\'%230ea5e9\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3ELakshadweep%3C/text%3E%3C/svg%3E';">
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: Kalpeni Island - Only Image -->
+                        <div class="slide-card">
+                            <div class="card-image">
+                                <img src="slide2.png" alt="Kalpeni Island"
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'350\' viewBox=\'0 0 400 350\'%3E%3Crect width=\'400\' height=\'350\' fill=\'%2306d6a0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EKalpeni Island%3C/text%3E%3C/svg%3E';">
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: Cheriyam Island - Only Image -->
+                        <div class="slide-card">
+                            <div class="card-image">
+                                <img src="slide3.png" alt="Cheriyam Island"
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'350\' viewBox=\'0 0 400 350\'%3E%3Crect width=\'400\' height=\'350\' fill=\'%230ea5e9\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3ECheriyam Island%3C/text%3E%3C/svg%3E';">
+                            </div>
+                        </div>
+
+                        <!-- Slide 4: Kayaking to Pitti and Thilakkam - Only Image -->
+                        <div class="slide-card">
+                            <div class="card-image">
+                                <img src="slide4.png" alt="Kayaking to Pitti and Thilakkam Islands"
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'350\' viewBox=\'0 0 400 350\'%3E%3Crect width=\'400\' height=\'350\' fill=\'%2306d6a0\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'Arial\' font-size=\'24\' fill=\'white\'%3EPitti %26 Thilakkam%3C/text%3E%3C/svg%3E';">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="slider-btn" id="nextBtn" aria-label="Next slides">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Slider Dots -->
+            <div class="slider-dots" id="sliderDots">
+                <button class="dot active" data-slide="0"></button>
+                <button class="dot" data-slide="1"></button>
+                <button class="dot" data-slide="2"></button>
+                <button class="dot" data-slide="3"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="about" id="about">
+        <div class="about-content">
+            <h2>About Oceaholidays</h2>
+            
+            <p>At <strong>OCEA HOLIDAYS</strong>, we believe travel should be effortless, immersive, and thoughtfully curated. Specializing in Lakshadweep island experiences, we design journeys that highlight the region's untouched beauty while preserving its cultural essence.</p>
+            
+            <p>From crystal-clear lagoons and vibrant coral reefs to warm local hospitality, every detail of our itineraries is carefully selected to ensure an unforgettable experience. With a commitment to quality, comfort, and personalized service, OCEA Holidays offers seamless travel solutions—from permits and accommodations to guided island experiences.</p>
+            
+            <ul class="about-list">
+                <li>
+                    <i class="fas fa-mountain"></i>
+                    <span>Specializing in Lakshadweep island experiences since 2010</span>
+                </li>
+                <li>
+                    <i class="fas fa-water"></i>
+                    <span>Curated journeys to the most beautiful and untouched islands</span>
+                </li>
+                <li>
+                    <i class="fas fa-briefcase"></i>
+                    <span>Dedicated to preserving the cultural and natural heritage</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="contact-info" id="contact">
+        <h2 class="section-title">Contact Information</h2>
+        <p class="section-subtitle">Feel free to reach out to us for any inquiries about our Lakshadweep tours.</p>
+        
+        <div class="contact-grid">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Visit Us</h3>
+                <p>Island View Complex<br>Lakshadweep, India 682555</p>
+            </div>
+            
+            <div class="contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Call Us</h3>
+                <p>+91 98765 43210</p>
+            </div>
+            
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <h3>Email Us</h3>
+                <p>info@oceaholidays.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Ocea Holidays</h3>
+                <p>Creating unforgettable island experiences since 2010. We specialize in curating immersive journeys to Lakshadweep's most beautiful destinations.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            © 2026 Ocea Holidays | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Slider functionality with manual controls
+        const slider = document.getElementById('heroSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dots = document.querySelectorAll('.dot');
+        
+        let currentIndex = 0;
+        const totalSlides = 4;
+        let slidesToShow = 3; // Default for desktop
+        
+        // Function to determine slides to show based on screen width
+        function getSlidesToShow() {
+            if (window.innerWidth <= 768) return 1;
+            if (window.innerWidth <= 1200) return 2;
+            return 3;
+        }
+        
+        // Update slidesToShow on resize
+        window.addEventListener('resize', () => {
+            slidesToShow = getSlidesToShow();
+            updateSlider();
+            updateButtons();
+        });
+        
+        // Initialize
+        slidesToShow = getSlidesToShow();
+        
+        // Maximum index value
+        function getMaxIndex() {
+            return Math.max(0, totalSlides - slidesToShow);
+        }
+        
+        // Update slider position
+        function updateSlider() {
+            const slideWidth = 100 / slidesToShow;
+            const translateValue = - (currentIndex * slideWidth);
+            slider.style.transform = `translateX(${translateValue}%)`;
+            
+            // Update dots
+            dots.forEach((dot, index) => {
+                if (index === currentIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Update button states
+        function updateButtons() {
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === getMaxIndex();
+        }
+        
+        // Next button click
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < getMaxIndex()) {
+                currentIndex++;
+                updateSlider();
+                updateButtons();
+            }
+        });
+        
+        // Previous button click
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+                updateButtons();
+            }
+        });
+        
+        // Dot click events
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                if (slideIndex <= getMaxIndex()) {
+                    currentIndex = slideIndex;
+                    updateSlider();
+                    updateButtons();
+                }
+            });
+        });
+        
+        // Initial button states
+        updateButtons();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Navbar active link update on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.about, .contact-info');
+            const navLinks = document.querySelectorAll('.menu a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
