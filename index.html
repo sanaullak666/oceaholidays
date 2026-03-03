@@ -106,7 +106,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 5%;
+            padding: 16px 5%;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -118,69 +118,28 @@
         }
 
         .navbar.scrolled {
-            padding: 8px 5%;
+            padding: 12px 5%;
             background: rgba(255, 255, 255, 0.98);
             box-shadow: var(--shadow-md);
         }
 
-        /* Logo Container */
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
+        /* Logo Styles */
         .logo {
             display: flex;
             align-items: center;
-            height: 80px; /* Increased from 70px to 80px */
+            height: 60px; /* Slightly increased */
         }
 
         .logo img {
             height: 100%;
             width: auto;
-            max-width: 320px; /* Increased from 280px to 320px */
+            max-width: 240px;
             object-fit: contain;
             transition: var(--transition);
         }
 
         .logo img:hover {
             transform: scale(1.05);
-        }
-
-        /* Tagline Styles */
-        .tagline {
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: 500;
-            letter-spacing: 1px;
-            margin-top: 5px;
-            margin-left: 4px;
-            position: relative;
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .tagline::before {
-            content: '⚓';
-            margin-right: 6px;
-            font-size: 0.9rem;
-            color: var(--secondary);
-            -webkit-text-fill-color: initial;
-        }
-
-        .tagline::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 20px;
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), transparent);
-            border-radius: var(--radius-full);
         }
 
         .menu {
@@ -277,6 +236,7 @@
         .section-header {
             text-align: center;
             margin-bottom: 40px;
+            position: relative;
         }
 
         .section-header h1 {
@@ -296,6 +256,43 @@
             max-width: 700px;
             margin: 0 auto;
             padding: 0 15px;
+        }
+
+        /* Floating Tagline - NEW */
+        .floating-tagline {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow-lg);
+            transform: rotate(2deg);
+            animation: float-tagline 3s ease-in-out infinite;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+
+        .floating-tagline i {
+            font-size: 1.2rem;
+            animation: sail 2s ease-in-out infinite;
+        }
+
+        @keyframes float-tagline {
+            0%, 100% { transform: rotate(2deg) translateY(0); }
+            50% { transform: rotate(2deg) translateY(-5px); }
+        }
+
+        @keyframes sail {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
         }
 
         /* Card Slider */
@@ -821,6 +818,20 @@
             margin: 0 auto;
         }
 
+        /* Footer Tagline - subtle addition */
+        .footer-tagline {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .footer-tagline i {
+            margin: 0 5px;
+            font-size: 0.8rem;
+        }
+
         /* Enhanced Mobile Responsive */
         @media (max-width: 992px) {
             .slide-card {
@@ -835,12 +846,20 @@
                 display: block;
             }
             
-            .logo {
-                height: 70px; /* Slightly smaller on tablet */
+            .floating-tagline {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 0 auto 20px;
+                width: fit-content;
+                transform: rotate(0);
+                font-size: 1rem;
+                padding: 10px 20px;
             }
             
-            .logo img {
-                max-width: 280px;
+            @keyframes float-tagline {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-5px); }
             }
         }
 
@@ -895,15 +914,11 @@
             }
 
             .logo {
-                height: 60px; /* Smaller on mobile */
+                height: 50px;
             }
             
             .logo img {
-                max-width: 240px;
-            }
-            
-            .tagline {
-                font-size: 0.8rem;
+                max-width: 200px;
             }
 
             .slide-card {
@@ -957,7 +972,7 @@
             }
             
             .slider-btn {
-                display: none; /* Hide buttons on very small screens, use dots and swipe only */
+                display: none;
             }
             
             .slider-dots {
@@ -996,19 +1011,20 @@
             }
 
             .logo {
-                height: 50px; /* Smaller on very small screens */
+                height: 45px;
             }
             
             .logo img {
-                max-width: 200px;
-            }
-            
-            .tagline {
-                font-size: 0.75rem;
+                max-width: 180px;
             }
             
             .swipe-indicator {
                 font-size: 0.8rem;
+            }
+            
+            .floating-tagline {
+                font-size: 0.9rem;
+                padding: 8px 16px;
             }
         }
 
@@ -1053,11 +1069,8 @@
 
     <!-- Navbar -->
     <div class="navbar" id="navbar">
-        <div class="logo-container">
-            <div class="logo">
-                <img src="oceaholidays.jpeg" alt="Ocea Holidays Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/320x80/0a7e8c/ffffff?text=Ocea+Holidays';">
-            </div>
-            <div class="tagline">Sail beyond expectations!</div>
+        <div class="logo">
+            <img src="oceaholidays.jpeg" alt="Ocea Holidays Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/240x60/0a7e8c/ffffff?text=Ocea+Holidays';">
         </div>
         
         <!-- Mobile Menu Toggle -->
@@ -1077,6 +1090,11 @@
     <!-- Hero Section with Card Slides -->
     <div class="hero">
         <div class="hero-container">
+            <!-- Floating Tagline - Most prominent placement -->
+            <div class="floating-tagline">
+                <i class="fas fa-sailboat"></i> Sail beyond expectations! <i class="fas fa-water"></i>
+            </div>
+            
             <div class="section-header">
                 <h1>Discover Lakshadweep with Ocea Holidays</h1>
                 <p>Explore the pristine beauty of untouched islands through our curated collection of experiences</p>
@@ -1201,6 +1219,7 @@
         <div class="footer-content">
             <div class="footer-col">
                 <h3>Ocea Holidays</h3>
+                <p>Creating unforgettable island experiences since 2010.</p>
                 
                 <!-- Social Links -->
                 <div class="social-links">
@@ -1213,6 +1232,11 @@
                     <a href="https://www.facebook.com/924963727372513?ref=PROFILE_EDIT_xav_ig_profile_page_web" class="social-link facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                         <i class="fab fa-facebook-f"></i>
                     </a>
+                </div>
+                
+                <!-- Footer Tagline - subtle reinforcement -->
+                <div class="footer-tagline">
+                    <i class="fas fa-sailboat"></i> Sail beyond expectations <i class="fas fa-water"></i>
                 </div>
             </div>
             
@@ -1289,7 +1313,6 @@
         let touchStartX = 0;
         let touchEndX = 0;
         let isDragging = false;
-        let startTransform = 0;
         
         // Function to determine slides to show based on screen width
         function getSlidesToShow() {
@@ -1369,7 +1392,6 @@
         sliderWrapper.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
             isDragging = true;
-            startTransform = currentIndex;
         }, { passive: true });
         
         sliderWrapper.addEventListener('touchmove', (e) => {
@@ -1385,17 +1407,14 @@
             
             if (Math.abs(diffX) > swipeThreshold) {
                 if (diffX > 0 && currentIndex < getMaxIndex()) {
-                    // Swipe left - go to next
                     currentIndex++;
                 } else if (diffX < 0 && currentIndex > 0) {
-                    // Swipe right - go to previous
                     currentIndex--;
                 }
                 updateSlider();
                 updateButtons();
             }
             
-            // Reset touch values
             touchStartX = 0;
             touchEndX = 0;
             isDragging = false;
