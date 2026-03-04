@@ -590,49 +590,114 @@
             margin: 0;
         }
 
-        .about-image {
+        /* Package Inclusions Section */
+        .inclusions {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e6f2f9 100%);
+        }
+
+        .inclusions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
             border-radius: var(--radius-lg);
-            overflow: hidden;
+            padding: 50px;
             box-shadow: var(--shadow-lg);
-            position: relative;
-            height: 450px;
+            border: 1px solid rgba(0, 102, 204, 0.1);
         }
 
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+        .inclusions-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
-        .about-image:hover img {
-            transform: scale(1.05);
+        .inclusions-header h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 15px;
         }
 
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
-            border: 2px solid var(--white);
+        .inclusions-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .inclusions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .inclusion-item {
+            background: var(--light);
+            padding: 25px 20px;
             border-radius: var(--radius-md);
-            z-index: 1;
-            pointer-events: none;
+            border: 1px solid rgba(0, 102, 204, 0.1);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .inclusion-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+            background: var(--white);
+        }
+
+        .inclusion-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .inclusion-text {
+            flex: 1;
+        }
+
+        .inclusion-text h4 {
+            font-size: 1rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .inclusion-text p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .inclusion-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
         }
 
         /* Destinations Section */
         .destinations {
             padding: 80px 5%;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e6f2f9 100%);
         }
 
         .destinations-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 40px auto 0;
         }
 
@@ -688,6 +753,17 @@
         .destination-info p i {
             color: var(--primary);
             font-size: 0.9rem;
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 10px;
         }
 
         /* Contact Info */
@@ -794,7 +870,7 @@
 
         .footer-content {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 40px;
             max-width: 1400px;
             margin: 0 auto 40px;
@@ -915,10 +991,44 @@
             margin: 0 3px;
         }
 
+        /* Newsletter Section */
+        .newsletter {
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter-input input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+            font-size: 0.95rem;
+        }
+
+        .newsletter-input input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .newsletter-input input:focus {
+            outline: 2px solid var(--secondary);
+        }
+
+        .newsletter-input button {
+            padding: 12px 20px;
+            white-space: nowrap;
+        }
+
         /* Responsive Design */
         @media (max-width: 1200px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr 1fr;
+            .inclusions-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
@@ -931,8 +1041,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .about-image {
-                order: -1;
+            .inclusions-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .destinations-grid {
@@ -1029,6 +1139,14 @@
                 font-size: 1rem;
             }
             
+            .inclusions-container {
+                padding: 30px 20px;
+            }
+            
+            .inclusions-grid {
+                grid-template-columns: 1fr;
+            }
+            
             .destinations-grid {
                 grid-template-columns: 1fr;
             }
@@ -1089,6 +1207,15 @@
             .tagline {
                 font-size: 0.7rem;
             }
+            
+            .inclusion-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .newsletter-input {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -1125,6 +1252,7 @@
         <div class="menu" id="menu">
             <a href="#" class="active">Home</a>
             <a href="#about">About</a>
+            <a href="#inclusions">Packages</a>
             <a href="#destinations">Destinations</a>
             <a href="#contact">Contact</a>
             <button class="cta-button"><i class="fas fa-calendar-check"></i> Book Now</button>
@@ -1240,8 +1368,135 @@
                 </div>
             </div>
             
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lakshadweep Island">
+            <div style="border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); height: 450px; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center;">
+                <div style="text-align: center; color: var(--white); padding: 30px;">
+                    <i class="fas fa-umbrella-beach" style="font-size: 5rem; margin-bottom: 20px;"></i>
+                    <h3 style="font-size: 2rem; margin-bottom: 15px;">Your Island Paradise Awaits</h3>
+                    <p style="font-size: 1.1rem; opacity: 0.9;">Experience the magic of Lakshadweep with us</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Package Inclusions Section -->
+    <div class="inclusions" id="inclusions">
+        <div class="inclusions-container">
+            <div class="inclusions-header">
+                <h2>✨ Island Explorer Package</h2>
+                <p>4 Days & 3 Nights • Complete Lakshadweep Experience</p>
+                <div style="margin-top: 15px;">
+                    <span class="price-tag" style="font-size: 1.5rem; padding: 8px 30px;">₹ 24,999 per person</span>
+                </div>
+            </div>
+            
+            <div class="inclusions-grid">
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-bed"></i></div>
+                    <div class="inclusion-text">
+                        <h4>3 Night STD AC Room</h4>
+                        <p>Comfortable accommodations</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-file-alt"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Entry Permit & Heritage Fee</h4>
+                        <p>All permits included</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-ship"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Ship Ticket (Bunk Class)</h4>
+                        <p>Up & Down journey</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-shuttle-van"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Pick up & Drop</h4>
+                        <p>Seaport-Hotel-Seaport</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Kalpeni Island Sightseeing</h4>
+                        <p>Guided tour</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-utensils"></i></div>
+                    <div class="inclusion-text">
+                        <h4>4 Days APAI PLAN</h4>
+                        <p>Breakfast + Lunch & Dinner</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-user-tie"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Guide</h4>
+                        <p>Expert local guide</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-umbrella-beach"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Cheriyam Island Trip</h4>
+                        <p>Full day excursion</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-water"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Snorkelling</h4>
+                        <p>Equipment included</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-ship"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Pitti Island Trip</h4>
+                        <p>Guided visit</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-ship"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Thilakkam Island Trip</h4>
+                        <p>Guided visit</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-map-pin"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Entry Tickets</h4>
+                        <p>Lighthouse entry included</p>
+                    </div>
+                </div>
+                
+                <div class="inclusion-item">
+                    <div class="inclusion-icon"><i class="fas fa-water"></i></div>
+                    <div class="inclusion-text">
+                        <h4>Kayaking</h4>
+                        <p>Adventure activity</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="cta-button" style="padding: 15px 40px; font-size: 1.1rem;"><i class="fas fa-calendar-check"></i> Book This Package</button>
             </div>
         </div>
     </div>
@@ -1281,16 +1536,6 @@
                 <div class="destination-info">
                     <h3>Kavaratti Island</h3>
                     <p><i class="fas fa-clock"></i> 3 days · from ₹21,000</p>
-                </div>
-            </div>
-            
-            <div class="destination-card">
-                <div class="destination-image">
-                    <img src="https://images.unsplash.com/photo-1573843989-c9d7ad1f3c28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Minicoy Island">
-                </div>
-                <div class="destination-info">
-                    <h3>Minicoy Island</h3>
-                    <p><i class="fas fa-clock"></i> 6 days · from ₹38,000</p>
                 </div>
             </div>
         </div>
@@ -1350,28 +1595,20 @@
                 <ul class="footer-links">
                     <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
                     <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#inclusions"><i class="fas fa-chevron-right"></i> Packages</a></li>
                     <li><a href="#destinations"><i class="fas fa-chevron-right"></i> Destinations</a></li>
                     <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
                 </ul>
             </div>
             
             <div class="footer-col">
-                <h3>Destinations</h3>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Agatti Island</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Bangaram Island</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Kavaratti Island</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Minicoy Island</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Kalpeni Island</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-col">
                 <h3>Newsletter</h3>
                 <p>Subscribe for exclusive offers and travel updates</p>
-                <div style="display: flex; gap: 10px; margin-top: 15px;">
-                    <input type="email" placeholder="Your email" style="flex: 1; padding: 12px; border: none; border-radius: var(--radius-md); background: rgba(255,255,255,0.1); color: var(--white);">
-                    <button class="cta-button" style="padding: 12px 20px;">Subscribe</button>
+                <div class="newsletter">
+                    <div class="newsletter-input">
+                        <input type="email" placeholder="Your email">
+                        <button class="cta-button">Subscribe</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1555,7 +1792,7 @@
         
         // Active link on scroll
         window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('.about, .destinations, .contact-info');
+            const sections = document.querySelectorAll('.about, .inclusions, .destinations, .contact-info');
             const navLinks = document.querySelectorAll('.menu a');
             
             let current = '';
